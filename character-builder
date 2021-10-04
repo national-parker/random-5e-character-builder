@@ -2,12 +2,14 @@
 ancestry (5e "race"), backround, class, and the ability scores (optionally with the
 number of +2/+1 options"""
 
-character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
+#character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
 
 """The first part of this will be the stat rolling. I plan to use the randint feature to simulate rolling
 4d6 and dropping the lowest, then arranging them high to low."""
+
 from random import randint
-def rolling4d6dropLowest(l): #funciton accepting argument l which is presumed to be a list
+
+def rolling4d6dropLowest(l): #funciton accepting argument l which is presumed to be an empty list
     for i in range(6): #a for loop which will run 6 times, once for each final stat
         n = []  #forming empty list which randint will append d6 rolls into
         for j in range(4):
@@ -19,7 +21,7 @@ def rolling4d6dropLowest(l): #funciton accepting argument l which is presumed to
     l.sort(reverse=True)  #sorting the list taken as argument for the function from high-low
     return l  #returning the list with the six scores
 
-rolling4d6dropLowest(character["stats"])  #calling the formula with the character dictionary
+#rolling4d6dropLowest(character["stats"])  #calling the formula with the character dictionary
 #print(character["stats"]) #testing whether it added to the dictionary correctly, will be removed in final EDIT: commented out now
 
 """the final printed screen should look something like:
@@ -35,19 +37,19 @@ Breakdown could be (and this is completely arbitrary) 35% human, 35% common, 20%
 
 """this part is going to need to be expanded with all 5e races in due time"""
 
-anc_h = ["Human"] #the first ancesty list is just human
-anc_c = ["Orc (VGM or ERLW or EGW)", "Lizardfolk (VGM)", 'Kobold (VGM)', 'Hobgoblin (VGM or ERLW)',\
-         'Goblin (VGM or GGR or ERLW)', 'Halfling (PHB or SCAG or EGW)', 'Elf (PHB or MTF)', \
-         'Dwarf (PHB or MTF)'] #this is going to be a longer list of just common ancestries
-anc_uc = ['Yuan-ti Pureblood (VGM)', 'Triton (VGM or MOT)', 'Tabaxi (VGM)', 'Kenku (VGM)', 'Goliath (VGM)', \
-          'Firbolg (VGM)', 'Bugbear (VGM or ERLW)', 'Tiefling (PHB or SCAG or MTF)', 'Half-Orc (PHB)', 'Half-Elf (PHB)', \
-          'Gnome (PHB or SCAG or MTF)', 'Dragonborn (PHB)', 'Dragonborn (Ravenite) (EGW)'] #this will be longer list of uncommon ancestries
-anc_r = ['Harengon (WBtW)', 'Fairy (WBtW)', 'Reborn (VRGR)', 'Hexblood (VRGR)', 'Dhampir (VRGR)', 'Aasimar  (VGM)', \
-         'Custom Lineage (TCE)', 'Gith (Githzerai) (MTF)', 'Gith (Githyanki) (MTF)', 'Satyr (MOT)', 'Minotaur (MOT or GGR)', \
-         'Leonin (MOT)', 'Centaur (MOT or GGR)', 'Vedalken (GGR)', 'Simic Hybrid (GGR)', 'Loxodon (GGR)', 'Warforged (ERLW)', \
-         'Shifter (ERLW)', 'Kalashtar  (ERLW)', 'Changeling (ERLW)', 'Dragonborn (Draconblood) (EGW)', 'Genasi (Water) (EEPC)', \
-         'Genasi (Fire)(EEPC)', 'Genasi (Earth) (EEPC)', 'Genasi (Air) (EEPC)', 'Aarakocra  (EEPC)', 'Merfolk (CftD)', \
-         'Verdan (AI)'] #this is the list of the rarest ancestires 
+anc_h = ["human"] #the first ancesty list is just human
+anc_c = ["orc (VGM or ERLW or EGW)", "lizardfolk (VGM)", 'kobold (VGM)', 'hobgoblin (VGM or ERLW)',\
+         'goblin (VGM or GGR or ERLW)', 'halfling (PHB or SCAG or EGW)', 'elf (PHB or MTF)', \
+         'dwarf (PHB or MTF)'] #this is going to be a longer list of just common ancestries
+anc_uc = ['yuan-ti pureblood (VGM)', 'triton (VGM or MOT)', 'tabaxi (VGM)', 'kenku (VGM)', 'goliath (VGM)', \
+          'firbolg (VGM)', 'bugbear (VGM or ERLW)', 'tiefling (PHB or SCAG or MTF)', 'half-orc (PHB)', 'half-elf (PHB)', \
+          'gnome (PHB or SCAG or MTF)', 'dragonborn (PHB)', 'dragonborn (Ravenite) (EGW)'] #this will be longer list of uncommon ancestries
+anc_r = ['harengon (WBtW)', 'fairy (WBtW)', 'reborn (VRGR)', 'hexblood (VRGR)', 'dhampir (VRGR)', 'aasimar  (VGM)', \
+         'custom lineage (TCE)', 'gith (githzerai) (MTF)', 'gith (githyanki) (MTF)', 'satyr (MOT)', 'minotaur (MOT or GGR)', \
+         'leonin (MOT)', 'centaur (MOT or GGR)', 'vedalken (GGR)', 'simic hybrid (GGR)', 'loxodon (GGR)', 'warforged (ERLW)', \
+         'shifter (ERLW)', 'kalashtar  (ERLW)', 'changeling (ERLW)', 'dragonborn (draconblood) (EGW)', 'genasi (water) (EEPC)', \
+         'genasi (fire)(EEPC)', 'genasi (earth) (EEPC)', 'genasi (air) (EEPC)', 'aarakocra  (EEPC)', 'merfolk (CftD)', \
+         'verdan (AI)'] #this is the list of the rarest ancestires 
 
 def pickInRarity(anc_list):  #this program will help iterate within the rarity of a given list
     y = randint(1,len(anc_list))
@@ -79,14 +81,24 @@ def choose_class(char):  #there are 13 playable classes
     char["class"] = PC_classes[x]  #create a new item in dictionary with key "class" tied to string for the class
     return char  #return the finished new dictionary
 
-
-"""just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
-for i in range(5):
+def build_char():  #the final delivery, runs each program then prints the results to the console
+    character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
+    rolling4d6dropLowest(character["stats"]) #
     character = choose_ancestry(character)
     character = choose_class(character)
-    print(character)
+    #this is where the background will go
+    
+    #now for the final print
+    print("you have rolled a %s %s" % (character['ancestry'], character['class']))
+    #print("who was a(n) %s before adventuring" % (character['background']))  #will un-comment once background is done
+    print("your ability scores are: %s" % (character['stats']))
+    print("don\'t forget your score increases, likely +2/+1") #after done with backgrounds, set to check human, half-elf, etc.
     print("")
 
 
+#build_char()  #executes the final
+"""just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
+for i in range(5):
+    build_char()
 
 
