@@ -2,7 +2,6 @@
 ancestry (5e "race"), backround, class, and the ability scores (optionally with the
 number of +2/+1 options"""
 
-pl = "placeholder text"  #mainly for debugging purposes
 character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
 
 """The first part of this will be the stat rolling. I plan to use the randint feature to simulate rolling
@@ -21,7 +20,7 @@ def rolling4d6dropLowest(l): #funciton accepting argument l which is presumed to
     return l  #returning the list with the six scores
 
 rolling4d6dropLowest(character["stats"])  #calling the formula with the character dictionary
-print(character["stats"]) #testing whether it added to the dictionary correctly, will be removed in final
+#print(character["stats"]) #testing whether it added to the dictionary correctly, will be removed in final EDIT: commented out now
 
 """the final printed screen should look something like:
 Your character's ancestry is ___, your character's background is ___, and your character's class is ___.
@@ -33,6 +32,9 @@ against their string in the final directory as it prints."""
 each could have its own list, then it's two rolls really: one for common, uncommon, rare, and the second for which
 on that list is chosen. Given the prevalance of humans, maybe four lists: human, common, uncommon, and rare.
 Breakdown could be (and this is completely arbitrary) 35% human, 35% common, 20% uncommon, and 10% rare."""
+
+"""this part is going to need to be expanded with all 5e races in due time"""
+
 anc_h = ["human"] #the first ancesty list is just human
 anc_c = ["elf", "dwarf"] #this is going to be a longer list of just common ancestries
 anc_uc = ["gnome"] #this will be longer list of uncommon ancestries
