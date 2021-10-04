@@ -51,11 +51,11 @@ anc_r = ['harengon (WBtW)', 'fairy (WBtW)', 'reborn (VRGR)', 'hexblood (VRGR)', 
          'genasi (fire)(EEPC)', 'genasi (earth) (EEPC)', 'genasi (air) (EEPC)', 'aarakocra  (EEPC)', 'merfolk (CftD)', \
          'verdan (AI)'] #this is the list of the rarest ancestires 
 
-def pickInRarity(anc_list):  #this program will help iterate within the rarity of a given list
-    y = randint(1,len(anc_list))
+def pickInRarity(chosen_list):  #this program will help iterate within a given list and pick a random one, updated to be neutral
+    y = randint(1,len(chosen_list))
     #print("Ancestry in list is number: %s" % str(y))
-    #print(anc_list[y-1]) #debugging
-    return anc_list[y-1] #return the ancestry at index y-1 in the list
+    #print(chosen_list[y-1]) #debugging
+    return chosen_list[y-1] #return the ancestry at index y-1 in the list
 
 def choose_ancestry(char):
     x = randint(1,100)  #set x which determines the rarity of the race
@@ -81,6 +81,12 @@ def choose_class(char):  #there are 13 playable classes
     char["class"] = PC_classes[x]  #create a new item in dictionary with key "class" tied to string for the class
     return char  #return the finished new dictionary
 
+"""backgrounds are numerous, and vary in rarity similar to ancestries. should I use something like the pickInRarity program? hell
+I could probably just use it as-is, couldn't I? anc_list isn't tied to a specific list
+UPDATE"""
+
+
+
 def build_char():  #the final delivery, runs each program then prints the results to the console
     character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
     rolling4d6dropLowest(character["stats"]) #
@@ -98,7 +104,6 @@ def build_char():  #the final delivery, runs each program then prints the result
 
 #build_char()  #executes the final
 """just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
-for i in range(5):
+for i in range(10):
     build_char()
-
 
