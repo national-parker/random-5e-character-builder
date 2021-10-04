@@ -35,7 +35,7 @@ Breakdown could be (and this is completely arbitrary) 35% human, 35% common, 20%
 
 """this part is going to need to be expanded with all 5e races in due time"""
 
-anc_h = ["human"] #the first ancesty list is just human
+anc_h = ["Human"] #the first ancesty list is just human
 anc_c = ["Orc (VGM or ERLW or EGW)", "Lizardfolk (VGM)", 'Kobold (VGM)', 'Hobgoblin (VGM or ERLW)',\
          'Goblin (VGM or GGR or ERLW)', 'Halfling (PHB or SCAG or EGW)', 'Elf (PHB or MTF)', \
          'Dwarf (PHB or MTF)'] #this is going to be a longer list of just common ancestries
