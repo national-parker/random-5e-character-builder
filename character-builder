@@ -36,19 +36,28 @@ Breakdown could be (and this is completely arbitrary) 35% human, 35% common, 20%
 """this part is going to need to be expanded with all 5e races in due time"""
 
 anc_h = ["human"] #the first ancesty list is just human
-anc_c = ["elf", "dwarf"] #this is going to be a longer list of just common ancestries
-anc_uc = ["gnome"] #this will be longer list of uncommon ancestries
-anc_r = ["pixie"] #this is the rarest ancestires 
+anc_c = ["Orc (VGM or ERLW or EGW)", "Lizardfolk (VGM)", 'Kobold (VGM)', 'Hobgoblin (VGM or ERLW)',\
+         'Goblin (VGM or GGR or ERLW)', 'Halfling (PHB or SCAG or EGW)', 'Elf (PHB or MTF)', \
+         'Dwarf (PHB or MTF)'] #this is going to be a longer list of just common ancestries
+anc_uc = ['Yuan-ti Pureblood (VGM)', 'Triton (VGM or MOT)', 'Tabaxi (VGM)', 'Kenku (VGM)', 'Goliath (VGM)', \
+          'Firbolg (VGM)', 'Bugbear (VGM or ERLW)', 'Tiefling (PHB or SCAG or MTF)', 'Half-Orc (PHB)', 'Half-Elf (PHB)', \
+          'Gnome (PHB or SCAG or MTF)', 'Dragonborn (PHB)', 'Dragonborn (Ravenite) (EGW)'] #this will be longer list of uncommon ancestries
+anc_r = ['Harengon (WBtW)', 'Fairy (WBtW)', 'Reborn (VRGR)', 'Hexblood (VRGR)', 'Dhampir (VRGR)', 'Aasimar  (VGM)', \
+         'Custom Lineage (TCE)', 'Gith (Githzerai) (MTF)', 'Gith (Githyanki) (MTF)', 'Satyr (MOT)', 'Minotaur (MOT or GGR)', \
+         'Leonin (MOT)', 'Centaur (MOT or GGR)', 'Vedalken (GGR)', 'Simic Hybrid (GGR)', 'Loxodon (GGR)', 'Warforged (ERLW)', \
+         'Shifter (ERLW)', 'Kalashtar  (ERLW)', 'Changeling (ERLW)', 'Dragonborn (Draconblood) (EGW)', 'Genasi (Water) (EEPC)', \
+         'Genasi (Fire)(EEPC)', 'Genasi (Earth) (EEPC)', 'Genasi (Air) (EEPC)', 'Aarakocra  (EEPC)', 'Merfolk (CftD)', \
+         'Verdan (AI)'] #this is the list of the rarest ancestires 
 
 def pickInRarity(anc_list):  #this program will help iterate within the rarity of a given list
     y = randint(1,len(anc_list))
-    print("Ancestry in list is number: %s" % str(y))
-    print(anc_list[y-1]) #debugging
+    #print("Ancestry in list is number: %s" % str(y))
+    #print(anc_list[y-1]) #debugging
     return anc_list[y-1] #return the ancestry at index y-1 in the list
 
 def choose_ancestry(char):
     x = randint(1,100)  #set x which determines the rarity of the race
-    print("Percentile is: %s" % str(x)) #debugging
+    #print("Percentile is: %s" % str(x)) #debugging
     if x <= 35:  #if x is in the 1-35 range
         char["ancestry"] = pickInRarity(anc_h) #use the above function
     elif x <= 70:  #if x is in the 36-70 range
@@ -59,9 +68,25 @@ def choose_ancestry(char):
         char["ancestry"] = pickInRarity(anc_r)
     return char
 
-"""just running a few tests at once to make sure it works"""
+"""now that the ancestry is settled, at least well enough to run, time to pivot over to class and background;
+since classes are few, I'm going to do that one now, as this part should be easier
+"""
+PC_classes = ["artificer", "barbarian", "bard", "cleric", "druid", "fighter", "monk", "paladin", \
+              "ranger", "rogue", "sorcerer", "warlock", "wizard"]
+
+def choose_class(char):  #there are 13 playable classes
+    x = randint(0,12)  #so let's keep this part simple
+    char["class"] = PC_classes[x]  #create a new item in dictionary with key "class" tied to string for the class
+    return char  #return the finished new dictionary
+
+
+"""just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
 for i in range(5):
     character = choose_ancestry(character)
+    character = choose_class(character)
     print(character)
     print("")
+
+
+
 
