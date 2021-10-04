@@ -1,1 +1,65 @@
+"""This is the character builder base, creating a directory which will deliver
+ancestry (5e "race"), backround, class, and the ability scores (optionally with the
+number of +2/+1 options"""
+
+pl = "placeholder text"  #mainly for debugging purposes
+character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
+
+"""The first part of this will be the stat rolling. I plan to use the randint feature to simulate rolling
+4d6 and dropping the lowest, then arranging them high to low."""
+from random import randint
+def rolling4d6dropLowest(l): #funciton accepting argument l which is presumed to be a list
+    for i in range(6): #a for loop which will run 6 times, once for each final stat
+        n = []  #forming empty list which randint will append d6 rolls into
+        for j in range(4):
+            n.append(randint(1,6))  #rolling the four d6
+        n.sort()  #sorting them low-high
+        del(n[0])  #dropping the lowest
+        score = sum(n[0:])  #adding up the remaining three
+        l.append(score)  #adding each score to the list taken as argument for the function
+    l.sort(reverse=True)  #sorting the list taken as argument for the function from high-low
+    return l  #returning the list with the six scores
+
+rolling4d6dropLowest(character["stats"])  #calling the formula with the character dictionary
+print(character["stats"]) #testing whether it added to the dictionary correctly, will be removed in final
+
+"""the final printed screen should look something like:
+Your character's ancestry is ___, your character's background is ___, and your character's class is ___.
+Your stats are [________] and from your ancestry you have [+2/+1]or[+2/+1/+1]or[+1/+1/+1] to which you may
+distribute as you please. I will accomplish that by using the +2/+1 default, and then checking the few exceptions
+against their string in the final directory as it prints."""
+
+"""for the ancestry, I was thinking I could use a percentile system, between common, uncommon, and rare ancestries
+each could have its own list, then it's two rolls really: one for common, uncommon, rare, and the second for which
+on that list is chosen. Given the prevalance of humans, maybe four lists: human, common, uncommon, and rare.
+Breakdown could be (and this is completely arbitrary) 35% human, 35% common, 20% uncommon, and 10% rare."""
+anc_h = ["human"] #the first ancesty list is just human
+anc_c = ["elf", "dwarf"] #this is going to be a longer list of just common ancestries
+anc_uc = ["gnome"] #this will be longer list of uncommon ancestries
+anc_r = ["pixie"] #this is the rarest ancestires 
+
+def pickInRarity(anc_list):  #this program will help iterate within the rarity of a given list
+    y = randint(1,len(anc_list))
+    print("Ancestry in list is number: %s" % str(y))
+    print(anc_list[y-1]) #debugging
+    return anc_list[y-1] #return the ancestry at index y-1 in the list
+
+def choose_ancestry(char):
+    x = randint(1,100)  #set x which determines the rarity of the race
+    print("Percentile is: %s" % str(x)) #debugging
+    if x <= 35:  #if x is in the 1-35 range
+        char["ancestry"] = pickInRarity(anc_h) #use the above function
+    elif x <= 70:  #if x is in the 36-70 range
+        char["ancestry"] = pickInRarity(anc_c)
+    elif x <= 90:  #if x is in the 71-90 range
+        char["ancestry"] = pickInRarity(anc_uc)
+    else:  #for all other situations, which is 91-100 range
+        char["ancestry"] = pickInRarity(anc_r)
+    return char
+
+"""just running a few tests at once to make sure it works"""
+for i in range(5):
+    character = choose_ancestry(character)
+    print(character)
+    print("")
 
