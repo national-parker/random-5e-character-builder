@@ -1,3 +1,4 @@
+#this was coded in python 3.9.4
 """This is the character builder base, creating a directory which will deliver
 ancestry (5e "race"), backround, class, and the ability scores (optionally with the
 number of +2/+1 options"""
