@@ -107,7 +107,10 @@ def build_char():  #the final delivery, runs each program then prints the result
     character = choose_class(character)
     character = choose_background(character) #done building
     #now for the final print
-    print("you have rolled a %s %s" % (character['ancestry'], character['class']))
+    if character['ancestry'][0] in vowels:
+        print("you have rolled an %s %s" % (character['ancestry'], character['class']))  #if ancestry starts with a vowel
+    else:
+        print("you have rolled a %s %s" % (character['ancestry'], character['class']))  #otherwise
     if character['background'][0] in vowels:  #for a/an check
         print("your character was an %s before adventuring" % (character['background']).lower())  #background list is capatalized, so lower to fix
     else:
@@ -121,6 +124,9 @@ def build_char():  #the final delivery, runs each program then prints the result
 
 #build_char()  #executes the final
 """just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
-for i in range(5):
+print("welcome to national parks' random character generator")
+print("current setting is pick-three: 3 characters will be generated")
+z = input("press ENTER to continue")
+print("")
+for i in range(3):
     build_char()
-
