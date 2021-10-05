@@ -124,7 +124,7 @@ def build_char():  #the final delivery, runs each program then prints the result
     print("")
 
 #build_char()  #executes the final
-"""just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
+"""just running a few tests at once to make sure it works"""
 print("welcome to national parks' random character generator")
 print("current setting is pick-three: 3 characters will be generated")
 z = input("press ENTER to continue")
