@@ -24,11 +24,6 @@ def rolling4d6dropLowest(l): #funciton accepting argument l which is presumed to
 #rolling4d6dropLowest(character["stats"])  #calling the formula with the character dictionary
 #print(character["stats"]) #testing whether it added to the dictionary correctly, will be removed in final EDIT: commented out now
 
-"""the final printed screen should look something like:
-Your character's ancestry is ___, your character's background is ___, and your character's class is ___.
-Your stats are [________] and from your ancestry you have [+2/+1]or[+2/+1/+1]or[+1/+1/+1] to which you may
-distribute as you please. I will accomplish that by using the +2/+1 default, and then checking the few exceptions
-against their string in the final directory as it prints."""
 
 """for the ancestry, I was thinking I could use a percentile system, between common, uncommon, and rare ancestries
 each could have its own list, then it's two rolls really: one for common, uncommon, rare, and the second for which
@@ -51,11 +46,11 @@ anc_r = ['harengon (WBtW)', 'fairy (WBtW)', 'reborn (VRGR)', 'hexblood (VRGR)', 
          'genasi (fire)(EEPC)', 'genasi (earth) (EEPC)', 'genasi (air) (EEPC)', 'aarakocra  (EEPC)', 'merfolk (CftD)', \
          'verdan (AI)'] #this is the list of the rarest ancestires 
 
-def pickInRarity(anc_list):  #this program will help iterate within the rarity of a given list
-    y = randint(1,len(anc_list))
+def pickInRarity(chosen_list):  #this program will help iterate within a given list and pick a random one, updated to be neutral
+    y = randint(1,len(chosen_list))
     #print("Ancestry in list is number: %s" % str(y))
-    #print(anc_list[y-1]) #debugging
-    return anc_list[y-1] #return the ancestry at index y-1 in the list
+    #print(chosen_list[y-1]) #debugging
+    return chosen_list[y-1] #return the ancestry at index y-1 in the list
 
 def choose_ancestry(char):
     x = randint(1,100)  #set x which determines the rarity of the race
@@ -81,24 +76,51 @@ def choose_class(char):  #there are 13 playable classes
     char["class"] = PC_classes[x]  #create a new item in dictionary with key "class" tied to string for the class
     return char  #return the finished new dictionary
 
+"""backgrounds are numerous, and vary in rarity similar to ancestries. should I use something like the pickInRarity program? hell
+I could probably just use it as-is, couldn't I? anc_list isn't tied to a specific list
+UPDATED the pickInRarity function"""
+#I'm going to start with one background list with all the ones from 5e.tools, but leave open the idea of sorting by rarity in the future
+bac_list = ['Acolyte', 'Anthropologist', 'Archaeologist', 'Charlatan', 'City Watch' 'City Watch (Investigator)', 'Clan Crafter', \
+            'Cloistered Scholar', 'Courtier', 'Criminal', 'Criminal (Spy)', 'Entertainer', 'Entertainer (Gladiator)', 'Faction Agent', \
+            'Far Traveler', 'Feylost', 'Fisher', 'Folk Hero', 'Guild Artisan', 'Guild Artisan (Guild Merchant)', 'Haunted One', \
+            'Hermit', 'Inheritor', 'Investigator', 'Knight of the Order', 'Marine', 'Mercenary Veteran', 'Noble', 'Noble (Knight)', \
+            'Outlander', 'Sage', 'Sailor', 'Sailor (Pirate)', 'Shipwright', 'Smuggler', 'Soldier', 'Tribe (Uthgardt) Member', \
+            'Urban Bounty Hunter', 'Urchin', 'Capital City (Waterdhavian) Noble', 'Fey Carnival (Witchlight) Hand']
+
+def choose_background(char):  #function to select one of the backgrounds above
+    char['background'] = pickInRarity(bac_list)  #use the pickInRarity function to pull a random background from the list, then drop it in at key 'background'
+    return char
+
+"""putting it all together"""
+"""OLD TEXT: the final printed screen should look something like:
+Your character's ancestry is ___, your character's background is ___, and your character's class is ___.
+Your stats are [________] and from your ancestry you have [+2/+1]or[+2/+1/+1]or[+1/+1/+1] to which you may
+distribute as you please. I will accomplish that by using the +2/+1 default, and then checking the few exceptions
+against their string in the final directory as it prints."""
+
+vowels = ['A','E','I','O','U','a','e','i','o','u']  #for the a/an disambiguation for backgrounds
+
 def build_char():  #the final delivery, runs each program then prints the results to the console
     character = {"stats" : []} #starting with almost empty dictionary for character, empty list where stats will be
-    rolling4d6dropLowest(character["stats"]) #
+    rolling4d6dropLowest(character["stats"]) #call each function to build out the character directory
     character = choose_ancestry(character)
     character = choose_class(character)
-    #this is where the background will go
-    
+    character = choose_background(character) #done building
     #now for the final print
     print("you have rolled a %s %s" % (character['ancestry'], character['class']))
-    #print("who was a(n) %s before adventuring" % (character['background']))  #will un-comment once background is done
+    if character['background'][0] in vowels:  #for a/an check
+        print("your character was an %s before adventuring" % (character['background']).lower())  #background list is capatalized, so lower to fix
+    else:
+        print("your character was a %s before adventuring" % (character['background']).lower())  #background list is capatalized, so lower to fix
     print("your ability scores are: %s" % (character['stats']))
-    print("don\'t forget your score increases, likely +2/+1") #after done with backgrounds, set to check human, half-elf, etc.
+    if character['ancestry'] == 'human':  #presuming no variant human
+        print("don\'t forget your score increases: +1 to all")
+    else:  #if it's not variant human
+        print("don\'t forget your score increases: likely +2/+1") #after done with backgrounds, set to check human, half-elf, etc.
     print("")
-
 
 #build_char()  #executes the final
 """just running a few tests at once to make sure it works (does not test the statroll, which is done above outside the for loop)"""
 for i in range(5):
     build_char()
-
 
