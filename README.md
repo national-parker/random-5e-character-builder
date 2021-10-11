@@ -3,3 +3,5 @@ A python program to randomly select race, class, and background features, as wel
 
 I am not a programmer.
 This is the product of a couple days on CodeAcademy.
+
+UPDATE: PROGRAM SUSPENDED, CONTINUED IN ttrpg_suite
